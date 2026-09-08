@@ -1,0 +1,41 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Themes match the generator
+        run: python3 scripts/generate.py --check
+
+      - name: Themes are valid for Claude Code
+        run: python3 scripts/validate.py
+
+      - name: Shell scripts parse
+        run: |
+          bash -n install.sh
+          bash -n uninstall.sh
+
+      - name: Installer round-trips into a sandbox config dir
+        run: |
+          export CLAUDE_CONFIG_DIR="$(mktemp -d)"
+          ./install.sh --activate mocha
+          test -f "$CLAUDE_CONFIG_DIR/themes/catppuccin-mocha.json"
+          python3 - <<'PY'
+          import json, os
+          settings = json.load(open(os.environ["CLAUDE_CONFIG_DIR"] + "/settings.json"))
+          assert settings["theme"] == "custom:catppuccin-mocha", settings
+          PY
+          ./uninstall.sh
+          test ! -f "$CLAUDE_CONFIG_DIR/themes/catppuccin-mocha.json"
