@@ -1,13 +1,8 @@
 # Catppuccin for Claude Code
 
 Soothing pastel themes for the Claude Code terminal UI — all four Catppuccin
-flavours, every colour token the application exposes, derived from the official
-palette rather than picked by eye.
-
-> **Community project.** Not affiliated with Anthropic or the Catppuccin
-> organisation. Catppuccin ships no official Claude Code port, so this one is
-> built directly from the published palette data (`catppuccin/palette`
-> v1.8.0).
+flavours, every colour token the application exposes, generated from the
+official palette data (`catppuccin/palette` v1.8.0) rather than picked by eye.
 
 ## Flavours
 
