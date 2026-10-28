@@ -4,6 +4,16 @@ Soothing pastel themes for the Claude Code terminal UI — all four Catppuccin
 flavours, every colour token the application exposes, generated from the
 official palette data (`catppuccin/palette` v1.8.0) rather than picked by eye.
 
+## Preview
+
+| Mocha | Macchiato |
+|---|---|
+| ![Claude Code with Catppuccin Mocha](assets/mocha.svg) | ![Claude Code with Catppuccin Macchiato](assets/macchiato.svg) |
+| **Frappé** | **Latte** |
+| ![Claude Code with Catppuccin Frappé](assets/frappe.svg) | ![Claude Code with Catppuccin Latte](assets/latte.svg) |
+
+Captured from a real Claude Code session by `scripts/screenshots.sh`.
+
 ## Flavours
 
 | Flavour | Base | Slug | Background | Text | Accent | Auto-accept | Success | Error |
@@ -97,10 +107,12 @@ mapping serves all four:
 
 …and so on; `scripts/generate.py` holds the full mapping.
 
-**13 shimmer tokens** are the accent blended 45% toward the flavour's
-lightest anchor. The anchor is chosen by luminance, which is what lets the same
-rule work on Latte — there the base is lighter than Rosewater, so it wins and
-shimmers brighten instead of darkening.
+**13 shimmer tokens** are the accent blended toward the flavour's lightest
+anchor. The anchor is chosen by luminance, which is what lets the same rule work
+on Latte — there the base is lighter than Rosewater, so it wins and shimmers
+brighten instead of darkening. Because brightening on Latte also means fading
+into the background, the blend is 45% on dark flavours but only 25% on Latte,
+which keeps every shimmer visible.
 
 **8 background tokens** — diff bands, word highlights, message
 backgrounds — have no palette equivalent, since Catppuccin's 26 colours are
@@ -148,6 +160,7 @@ same trade.
 
 ```sh
 ./uninstall.sh                 # remove all four, revert active theme to `dark`
+                               # (`light` if Latte was active)
 ./uninstall.sh --keep-setting  # remove files, leave settings.json alone
 ```
 
@@ -159,6 +172,7 @@ Only the four files this project installs are touched.
 python3 scripts/generate.py           # rebuild themes/ from the palette
 python3 scripts/generate.py --check   # fail if committed themes are stale
 python3 scripts/validate.py           # verify tokens, syntax, contrast, ladders
+./scripts/screenshots.sh              # recapture assets/*.svg (needs claude, tmux)
 ```
 
 No dependencies beyond Python 3. `scripts/palette.json` is a trimmed copy of the
@@ -172,6 +186,15 @@ To retune, adjust the targets in `generate.py` — `ROLES` for semantic mapping,
 `BACKGROUNDS` for luminance targets and contrast floors — and regenerate. Please
 do not hand-edit files in `themes/`; they are build output and `--check` will
 fail.
+
+## Known limitations
+
+**Syntax highlighting inside diffs is not themeable.** Claude Code picks the
+code colours from the theme's `base`: Monokai Extended for `dark`, GitHub for
+`light`. No colour token reaches them, so the screenshots show those colours
+too. To get diffs that are Catppuccin only, set
+`"syntaxHighlightingDisabled": true` in `settings.json`. The bands and gutter
+still come from this theme.
 
 ## Compatibility
 

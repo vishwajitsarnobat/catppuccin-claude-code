@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="584" viewBox="0 0 880 584">
+<rect width="880" height="584" rx="10" fill="#303446"/>
+<path d="M0 10a10 10 0 0 1 10-10h860a10 10 0 0 1 10 10v24h-880z" fill="#292c3c"/>
+<circle cx="20" cy="17.0" r="6" fill="#e78284"/>
+<circle cx="40" cy="17.0" r="6" fill="#e5c890"/>
+<circle cx="60" cy="17.0" r="6" fill="#a6d189"/>
+<text x="440.0" y="22.0" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#a5adce">Claude Code · Catppuccin Frappé</text>
+<g font-family="ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14" xml:space="preserve">
+<rect x="20.0" y="54.0" width="840.0" height="19.6" fill="#414559"/>
+<text x="20.0" y="68.1" fill="#a5adce">❯</text>
+<text x="36.8" y="68.1" fill="#c6d0f5" textLength="789.6" lengthAdjust="spacingAndGlyphs">In greet.py, switch the string concatenation to an f-string and add a one-line docstring. Edit</text>
+<rect x="20.0" y="73.6" width="840.0" height="19.6" fill="#414559"/>
+<text x="36.8" y="87.7" fill="#c6d0f5" textLength="327.6" lengthAdjust="spacingAndGlyphs">the file directly; do not run anything.</text>
+<text x="36.8" y="126.9" fill="#a5adce" textLength="33.6" lengthAdjust="spacingAndGlyphs">Read</text>
+<text x="78.8" y="126.9" fill="#a5adce" font-weight="bold">1</text>
+<text x="95.6" y="126.9" fill="#a5adce" textLength="33.6" lengthAdjust="spacingAndGlyphs">file</text>
+<text x="20.0" y="166.1" fill="#a5adce">●</text>
+<text x="36.8" y="166.1" fill="#c6d0f5" font-weight="bold" textLength="50.4" lengthAdjust="spacingAndGlyphs">Update</text>
+<text x="87.2" y="166.1" fill="#c6d0f5" textLength="84.0" lengthAdjust="spacingAndGlyphs">(greet.py)</text>
+<text x="20.0" y="205.3" fill="#babbf1" textLength="840.0" lengthAdjust="spacingAndGlyphs">────────────────────────────────────────────────────────────────────────────────────────────────────</text>
+<text x="28.4" y="224.9" fill="#babbf1" font-weight="bold" textLength="75.6" lengthAdjust="spacingAndGlyphs">Edit file</text>
+<text x="28.4" y="244.5" fill="#a5adce" textLength="67.2" lengthAdjust="spacingAndGlyphs">greet.py</text>
+<text x="20.0" y="264.1" fill="#626880" textLength="840.0" lengthAdjust="spacingAndGlyphs">╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌</text>
+<text x="28.4" y="283.7" fill="#f8f8f2" fill-opacity="0.6">1</text>
+<text x="53.6" y="283.7" fill="#66d9ef" textLength="25.2" lengthAdjust="spacingAndGlyphs">def</text>
+<text x="87.2" y="283.7" fill="#a6e22e" textLength="42.0" lengthAdjust="spacingAndGlyphs">greet</text>
+<text x="129.2" y="283.7" fill="#f8f8f2">(</text>
+<text x="137.6" y="283.7" fill="#fd971f" textLength="33.6" lengthAdjust="spacingAndGlyphs">name</text>
+<text x="171.2" y="283.7" fill="#f8f8f2" textLength="16.8" lengthAdjust="spacingAndGlyphs">):</text>
+<rect x="20.0" y="289.2" width="840.0" height="19.6" fill="#7f3637"/>
+<text x="28.4" y="303.3" fill="#dc5a5a" textLength="25.2" lengthAdjust="spacingAndGlyphs">2 -</text>
+<text x="87.2" y="303.3" fill="#f8f8f2" textLength="268.8" lengthAdjust="spacingAndGlyphs">message = &quot;Hello, &quot; + name + &quot;!&quot;</text>
+<rect x="20.0" y="308.8" width="840.0" height="19.6" fill="#3e5330"/>
+<text x="28.4" y="322.9" fill="#50c850" textLength="25.2" lengthAdjust="spacingAndGlyphs">2 +</text>
+<text x="87.2" y="322.9" fill="#e6db74" textLength="445.2" lengthAdjust="spacingAndGlyphs">&quot;&quot;&quot;Print and return a greeting for the given name.&quot;&quot;&quot;</text>
+<rect x="20.0" y="328.4" width="840.0" height="19.6" fill="#3e5330"/>
+<text x="28.4" y="342.5" fill="#50c850" textLength="25.2" lengthAdjust="spacingAndGlyphs">3 +</text>
+<text x="87.2" y="342.5" fill="#f8f8f2" textLength="75.6" lengthAdjust="spacingAndGlyphs">message =</text>
+<text x="171.2" y="342.5" fill="#e6db74" textLength="67.2" lengthAdjust="spacingAndGlyphs">f&quot;Hello,</text>
+<text x="246.8" y="342.5" fill="#f8f8f2" textLength="50.4" lengthAdjust="spacingAndGlyphs">{name}</text>
+<text x="297.2" y="342.5" fill="#e6db74" textLength="16.8" lengthAdjust="spacingAndGlyphs">!&quot;</text>
+<text x="28.4" y="362.1" fill="#f8f8f2" fill-opacity="0.6">4</text>
+<text x="87.2" y="362.1" fill="#a6e22e" textLength="42.0" lengthAdjust="spacingAndGlyphs">print</text>
+<text x="129.2" y="362.1" fill="#f8f8f2" textLength="75.6" lengthAdjust="spacingAndGlyphs">(message)</text>
+<text x="28.4" y="381.7" fill="#f8f8f2" fill-opacity="0.6">5</text>
+<text x="87.2" y="381.7" fill="#f92672" textLength="50.4" lengthAdjust="spacingAndGlyphs">return</text>
+<text x="146.0" y="381.7" fill="#f8f8f2" textLength="58.8" lengthAdjust="spacingAndGlyphs">message</text>
+<text x="28.4" y="401.3" fill="#f8f8f2" fill-opacity="0.6">6</text>
+<text x="20.0" y="420.9" fill="#626880" textLength="840.0" lengthAdjust="spacingAndGlyphs">╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌</text>
+<text x="28.4" y="440.5" fill="#c6d0f5" textLength="268.8" lengthAdjust="spacingAndGlyphs">Do you want to make this edit to</text>
+<text x="305.6" y="440.5" fill="#c6d0f5" font-weight="bold" textLength="67.2" lengthAdjust="spacingAndGlyphs">greet.py</text>
+<text x="372.8" y="440.5" fill="#c6d0f5">?</text>
+<text x="28.4" y="460.1" fill="#babbf1">❯</text>
+<text x="45.2" y="460.1" fill="#a5adce" textLength="16.8" lengthAdjust="spacingAndGlyphs">1.</text>
+<text x="70.4" y="460.1" fill="#babbf1" textLength="25.2" lengthAdjust="spacingAndGlyphs">Yes</text>
+<text x="45.2" y="479.7" fill="#a5adce" textLength="16.8" lengthAdjust="spacingAndGlyphs">2.</text>
+<text x="70.4" y="479.7" fill="#c6d0f5" textLength="151.2" lengthAdjust="spacingAndGlyphs">Yes, and switch to</text>
+<text x="230.0" y="479.7" fill="#c6d0f5" font-weight="bold" textLength="529.2" lengthAdjust="spacingAndGlyphs">accept edits (auto-approve file edits and common file commands)</text>
+<text x="767.6" y="479.7" fill="#c6d0f5" textLength="67.2" lengthAdjust="spacingAndGlyphs">for this</text>
+<text x="70.4" y="499.3" fill="#c6d0f5" textLength="58.8" lengthAdjust="spacingAndGlyphs">session</text>
+<text x="137.6" y="499.3" fill="#c6d0f5" font-weight="bold" textLength="92.4" lengthAdjust="spacingAndGlyphs">(shift+tab)</text>
+<text x="45.2" y="518.9" fill="#a5adce" textLength="16.8" lengthAdjust="spacingAndGlyphs">3.</text>
+<text x="70.4" y="518.9" fill="#c6d0f5" textLength="16.8" lengthAdjust="spacingAndGlyphs">No</text>
+<text x="28.4" y="558.1" fill="#a5adce" textLength="235.2" lengthAdjust="spacingAndGlyphs">Esc to cancel · Tab to amend</text>
+</g></svg>
