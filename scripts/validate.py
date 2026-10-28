@@ -10,6 +10,7 @@ theme is caught rather than silently discarded at runtime:
   * all 72 tokens are present
   * every value matches the accepted colour syntax
   * `base` names a real built-in theme
+  * the `background` token, an accent despite its name, stays visible
   * diff bands stay readable and visibly distinct
 
 Usage:  python3 scripts/validate.py
@@ -23,7 +24,7 @@ import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from generate import KEYS, contrast, relative_luminance  # noqa: E402
+from generate import KEYS, PALETTE, contrast, relative_luminance  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BASES = {"dark", "light", "light-daltonized", "dark-daltonized",
@@ -65,8 +66,16 @@ def check(path):
     if errors:
         return errors
 
-    text, base = overrides["text"], overrides["background"]
+    # The `background` token is an accent, not the screen colour, so the base
+    # comes from the palette.
+    flavour = path.stem.removeprefix("catppuccin-")
+    base = PALETTE[flavour]["colors"]["base"]
+    text = overrides["text"]
     dark = relative_luminance(base) < 0.5
+    ratio = contrast(overrides["background"], base)
+    if ratio < 3.0:
+        errors.append(f"background: {ratio:.2f}:1 against the screen -- this "
+                      f"token is a foreground accent and must stay visible")
 
     for band, word in PAIRS:
         for token in (band, word):

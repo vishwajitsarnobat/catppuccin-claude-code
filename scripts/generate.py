@@ -60,7 +60,9 @@ KEYS = [
 # Which palette colour plays each semantic role. Flavour-independent: the
 # palette guarantees the same 26 names carry the same meaning in every flavour.
 ROLES = {
-    "text": "text", "inverseText": "base", "background": "base",
+    # `background` is not the screen background: Claude Code uses it as a cyan
+    # accent for background tasks and several dialog borders.
+    "text": "text", "inverseText": "base", "background": "teal",
     "subtle": "surface2", "inactive": "subtext0", "inactiveShimmer": "subtext1",
     "promptBorder": "overlay1", "promptBorderShimmer": "overlay2",
 
@@ -305,7 +307,7 @@ def main():
         o = theme["overrides"]
         worst_text = min(contrast(o["text"], o[k]) for k in BACKGROUNDS)
         worst_base = min(
-            contrast(o["background"] if spec["against"] == "base"
+            contrast(o["clawd_background"] if spec["against"] == "base"
                      else o[spec["against"]], o[k])
             for k, spec in BACKGROUNDS.items())
         print(f"{theme['name']:22} base={theme['base']:5} tokens={len(o)} "
