@@ -7,7 +7,8 @@ deterministic function of one. Nothing is hand-picked.
 Two derivation rules cover the roles Catppuccin's 26-colour spec does not
 define:
 
-  shimmer     accent blended 45% toward the flavour's lightest anchor
+  shimmer     accent blended toward the flavour's lightest anchor (45% on
+              dark flavours, 25% on light)
   background  accent's exact hue and saturation, lightness retargeted and
               then solved against a WCAG contrast floor
 
@@ -103,6 +104,11 @@ SHIMMERS = {
     "rainbow_blue_shimmer": "blue", "rainbow_indigo_shimmer": "mauve",
     "rainbow_violet_shimmer": "pink",
 }
+
+# How far each shimmer moves toward the anchor. On a light flavour the anchor is
+# the base itself, so the blend also erases contrast against the background --
+# at 45% Latte's warning shimmer drops to 1.6:1 and all but disappears.
+SHIMMER_BLEND = {"dark": 0.45, "light": 0.25}
 
 # Derived backgrounds.
 #
@@ -244,7 +250,8 @@ def build(flavour):
     for token, role in ROLES.items():
         theme[token] = colours[role]
     for token, accent in SHIMMERS.items():
-        theme[token] = blend(anchor, colours[accent], 0.45)
+        theme[token] = blend(anchor, colours[accent],
+                             SHIMMER_BLEND["dark" if is_dark else "light"])
     relaxed = {}
     for token, spec in BACKGROUNDS.items():
         against = spec["against"]
