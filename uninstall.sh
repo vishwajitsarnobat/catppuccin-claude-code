@@ -3,7 +3,8 @@
 # Remove Catppuccin themes for Claude Code.
 #
 # Only removes the four files this project installs. If the active theme is one
-# of them, the setting is reverted to the built-in dark theme so Claude Code
+# of them, the setting is reverted to a built-in theme (light for Latte, dark
+# otherwise) so Claude Code
 # does not start up pointing at a theme that no longer exists.
 
 set -euo pipefail
@@ -12,7 +13,7 @@ ALL_FLAVOURS=(latte frappe macchiato mocha)
 CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 THEMES_DIR="$CONFIG_DIR/themes"
 SETTINGS="$CONFIG_DIR/settings.json"
-FALLBACK="dark"
+FALLBACK=""
 
 die() { printf 'error: %s\n' "$*" >&2; exit 1; }
 info() { printf '%s\n' "$*"; }
@@ -26,7 +27,8 @@ Usage: uninstall.sh [options]
 Options:
   -d, --dir PATH        look in PATH instead of ~/.claude/themes
   -k, --keep-setting    do not touch the active theme in settings.json
-  -b, --fallback NAME   built-in theme to fall back to (default: dark)
+  -b, --fallback NAME   built-in theme to fall back to
+                        (default: light for Latte, dark otherwise)
   -h, --help            show this help
 USAGE
 }
@@ -59,8 +61,8 @@ done
 if [ "$keep_setting" = 0 ] && [ -f "$SETTINGS" ]; then
   if command -v python3 >/dev/null 2>&1; then
     python3 - "$SETTINGS" "$FALLBACK" <<'PY'
-import json, os, sys
-path, fallback = sys.argv[1], sys.argv[2]
+import json, os, shutil, sys
+path, fallback = os.path.realpath(sys.argv[1]), sys.argv[2]
 try:
     with open(path) as fh:
         settings = json.load(fh)
@@ -72,11 +74,13 @@ theme = settings.get("theme", "")
 ours = {f"custom:catppuccin-{f}" for f in
         ("latte", "frappe", "macchiato", "mocha")}
 if theme in ours:
+    fallback = fallback or ("light" if theme.endswith("-latte") else "dark")
     settings["theme"] = fallback
     tmp = path + ".tmp"
     with open(tmp, "w") as fh:
-        json.dump(settings, fh, indent=2)
+        json.dump(settings, fh, indent=2, ensure_ascii=False)
         fh.write("\n")
+    shutil.copymode(path, tmp)
     os.replace(tmp, path)
     print(f"reverted active theme to '{fallback}'")
 PY

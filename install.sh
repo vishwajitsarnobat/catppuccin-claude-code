@@ -17,7 +17,12 @@ ALL_FLAVOURS=(latte frappe macchiato mocha)
 CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 THEMES_DIR="$CONFIG_DIR/themes"
 SETTINGS="$CONFIG_DIR/settings.json"
-SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" 2>/dev/null && pwd || true)"
+# Empty when piped into bash, so a stray themes/ in the current directory is
+# never mistaken for a clone.
+SOURCE_DIR=""
+if [ -n "${BASH_SOURCE[0]:-}" ] && [ -f "${BASH_SOURCE[0]}" ]; then
+  SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+fi
 
 selected=()
 activate=""
@@ -145,28 +150,36 @@ if [ -n "$activate" ]; then
   ref="custom:catppuccin-$activate"
   if command -v python3 >/dev/null 2>&1; then
     python3 - "$SETTINGS" "$ref" <<'PY'
-import json, os, sys
-path, ref = sys.argv[1], sys.argv[2]
+import json, os, shutil, sys
+# Resolve symlinks so a dotfiles-managed settings.json is written through, not
+# replaced by a regular file.
+path, ref = os.path.realpath(sys.argv[1]), sys.argv[2]
 try:
     with open(path) as fh:
         settings = json.load(fh)
-    if not isinstance(settings, dict):
-        raise ValueError("settings.json is not a JSON object")
 except FileNotFoundError:
     settings = {}
+except ValueError as exc:
+    sys.exit(f"error: {path} is not valid JSON ({exc}) -- not touching it")
+if not isinstance(settings, dict):
+    sys.exit(f"error: {path} is not a JSON object -- not touching it")
 settings["theme"] = ref
 os.makedirs(os.path.dirname(path), exist_ok=True)
 tmp = path + ".tmp"
 with open(tmp, "w") as fh:
-    json.dump(settings, fh, indent=2)
+    json.dump(settings, fh, indent=2, ensure_ascii=False)
     fh.write("\n")
+if os.path.exists(path):
+    shutil.copymode(path, tmp)
 os.replace(tmp, path)
 PY
   elif command -v jq >/dev/null 2>&1; then
     mkdir -p "$(dirname "$SETTINGS")"
     [ -f "$SETTINGS" ] || echo '{}' > "$SETTINGS"
-    jq --arg t "$ref" '.theme = $t' "$SETTINGS" > "$SETTINGS.tmp" \
-      && mv "$SETTINGS.tmp" "$SETTINGS"
+    # Write back with cat rather than mv to keep symlinks and permissions intact.
+    jq --arg t "$ref" '.theme = $t' "$SETTINGS" > "$tmp/settings.json" \
+      || die "$SETTINGS is not valid JSON -- not touching it"
+    cat "$tmp/settings.json" > "$SETTINGS"
   else
     info ""
     info "could not edit $SETTINGS (need python3 or jq)."
